@@ -1,11 +1,7 @@
 {
   "name": "node",
   "version": "1.0.0",
-<<<<<<< HEAD
-  "main": "app.js",
-=======
   "main": "llama.js",
->>>>>>> a082898607406dd4b01d92e2007915875c97cd9d
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,10 +9,10 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-<<<<<<< HEAD
-=======
     "@huggingface/inference": "^2.8.1",
->>>>>>> a082898607406dd4b01d92e2007915875c97cd9d
-    "express": "^4.21.1"
+    "bloom-filters": "^3.0.4",
+    "blumea": "^1.1.2",
+    "express": "^4.21.1",
+    "log": "^6.3.2"
   }
 }
