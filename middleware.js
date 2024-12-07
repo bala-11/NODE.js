@@ -8,14 +8,8 @@ function middleware(req,res,next){
     next()
 }
 
-function parseData(req,res,next){
-    console.log("Parse Data")
-    res.header = JSON.parse(req.user)
-    next()
-}
-
-app.get("/user", middleware,parseData, (req,res)=>{
-    return res.status(200).send("Hi welcome")
+app.get("/user", middleware, (req,res)=>{
+    return res.status(200).send(req.user)
 })
 
 app.listen(PORT,()=>{
