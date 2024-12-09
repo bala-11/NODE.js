@@ -1,23 +1,12 @@
-const server = require('express')
-const app =  server()
-const redis = require("redis");
-const redisclient = redis.createClient();
+import Redis from 'ioredis';
+const redisConnection = new Redis()
 
-(async () => {
-	await redisclient.connect();
-})();
-
-console.log("Connecting to the Redis");
-
-redisclient.on("ready", () => {
-	console.log("Connected!");
-});
-
-redisclient.on("error", (err) => {
-	console.log("Error in the Connection");
-});
-
-
-app.listen(3000,(req,res)=>{
-    console.log(`app running in 3000`);
+redisConnection.on('connect',()=>{
+	console.log('Redis connected successfully...');
 })
+
+if(redisConnection.set("name","Balaji","EX",60)) console.log(`Redis key setted`);
+else console.log("Error in keys");
+
+// console.log(redisConnection.pttl("name"));
+
