@@ -19,15 +19,23 @@ var sampleInputs = [
   "welcome to village cooking channel",
   "hanumantha is good boy",
   "rishav is working on the API developing part",
+  "Annamalayaar",
+  "Durgadevi is a good girl",
+  "Nee ethu panna koodathunu solriyo atha pannuvan",
 ];
 
-runner
-  .loadWebsite()
-  .then(() => {
-    runner.callProcessor().then(() => {
-      runner.giveInputs(sampleInputs);
-    });
-  })
+runner.callProcessor().then(() => {
+    runner.loadWebsite().then(() => {
+          runner.giveInputs(sampleInputs);
+      });
+    })
   .catch((error) => {
     console.error(error);
-  });
+});
+
+
+/**
+ *  call is getting delay to get connected, need to add makeCall.click()
+ *  Reduce the sleep times in IVRtestings suite
+ *  Need to automate the captcha in gmail login
+ */

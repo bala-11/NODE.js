@@ -9,7 +9,7 @@ async function loadWebsite() {
     await driver.get("http://localhost:3001/");
     console.log(
       new Date(),
-      "TEST DRIVE STARTED ::::::::::::::::::::::::::"
+      "TTS ENGINE STARTED :::::::::::::::::::::::::::::::::::::::::"
     );
   } catch (error) {
     console.error("Test failed:", error);
@@ -22,38 +22,56 @@ async function loadWebsite() {
 async function callProcessor() {
   try {
     callReceiver = await new Builder().forBrowser("chrome").build();
-    const url = ''
-    console.log(typeof url);
-    await callReceiver.get(url);
-    await callReceiver.sleep(3000);
+    await callReceiver.manage().window().maximize()
+    await callReceiver.get('https://meet.google.com/new');
 
-    const signIn = await callReceiver.get(By.className('btn__text'))
-    signIn.click()
-    await callReceiver.sleep(3000);
+    const email = await callReceiver.wait(until.elementIsEnabled(await callReceiver.findElement(By.id('identifierId'))),10000)
+    await email.sendKeys("")
 
-    // const email = await callReceiver.get(By.className('whsOnd zHQkBf'))
-    // email.sendKeys("")
-    // // await callReceiver.sleep(3000);
+    const next2Captcha = await callReceiver.wait(until.elementIsEnabled(await callReceiver.findElement(By.xpath('//*[@id="identifierNext"]/div/button/span'))),10000)
+    next2Captcha.click()
 
-    // const next2Pwd  = await callReceiver.get(By.className('VfPpkd-vQzf8d'))
-    // next2Pwd.click()
-    // // await callReceiver.sleep(3000);
+    //Wait for the user to give the captcha  input
+    await callReceiver.sleep(15000)
 
-    // const pwd = await callReceiver.get(By.className("whsOnd zHQkBf"))
-    // pwd.sendKeys("")
-    // // await callReceiver.sleep(3000);
+    const next2Pwd  = await callReceiver.wait(until.elementIsEnabled(await callReceiver.findElement(By.xpath('//*[@id="identifierNext"]/div/button'))),10000)
+    next2Pwd.click()
 
-    // const next2login = await callReceiver.get(By.className('VfPpkd-vQzf8d'))
-    // next2login.click()
-    // // await callReceiver.sleep(3000);
+    await callReceiver.sleep(3000)
 
-    // const meet = await callReceiver.get(By.className('V6 CL Xj'))
-    // meet.click()
-    // // await callReceiver.sleep(3000);
+    const pwd = await callReceiver.wait(until.elementIsEnabled(await callReceiver.findElement(By.className('whsOnd zHQkBf'))),10000)
+    await pwd.sendKeys("")
 
-    // const newMeet = await callReceiver.get(By.className('VfPpkd-vQzf8d'))
-    // newMeet.click()
-    // // await callReceiver.sleep(3000);
+    const next2login = await callReceiver.wait(until.elementIsEnabled(await callReceiver.findElement(By.xpath('//*[@id="passwordNext"]/div/button'))),10000)
+    next2login.click()
+
+    /**
+     * User need to Allow the Mic and enable the camera if needed to record the call
+     * Currently added 40s to avoid Element not found error on add others
+     */
+    await callReceiver.sleep(20000);
+
+    const clickPerson = await callReceiver.wait(until.elementIsEnabled(await callReceiver.findElement(By.xpath('//*[@id="yDmH0d"]/c-wiz/div[1]/div/div[34]/div[4]/div[10]/div/div/div[3]/div/div[2]/div/span/button/div'))),30000)
+    clickPerson.click()
+    await callReceiver.sleep(4000);
+
+    const addPersons = await callReceiver.wait(until.elementIsEnabled(await callReceiver.findElement(By.xpath('//*[@id="yDmH0d"]/c-wiz/div[1]/div/div[34]/div[4]/div[4]/div[2]/div/div[2]/div[1]/div/div/div/button/span[6]'))),10000)
+    addPersons.click()
+    await callReceiver.sleep(4000)
+
+    const addCall = await callReceiver.wait(until.elementIsEnabled(await callReceiver.findElement(By.xpath('//*[@id="Call"]'))),10000)
+    addCall.click()
+    await callReceiver.sleep(4000)
+
+    const sipNumber = await callReceiver.wait(until.elementIsEnabled(await callReceiver.findElement(By.className('whsOnd zHQkBf'))),10000)
+    sipNumber.sendKeys('')
+    await callReceiver.sleep(4000)
+
+    const makeCall = await callReceiver.wait(until.elementIsEnabled(await callReceiver.findElement(By.className('VfPpkd-Bz112c-LgbsSe yHy1rc eT1oJ tWDL4c B155Lc julaX'))),10000)
+    makeCall.click()
+
+    console.log(new Date(),"GOOGLE MEET IS CONNECTED :::::::::::::::::::::::::")
+    // await callReceiver.sleep(4000)
 
   } catch (err) {
     console.error(err);
