@@ -3,6 +3,7 @@ const path = require("path");
 const app = express();
 const port = 3001;
 const runner = require("./IVRTestingFile");
+const runnerLite = require("./pgTeST");
 
 app.use(express.static(path.join(__dirname, "Text-to-speech-app-main")));
 
@@ -11,31 +12,49 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`TTS Engine running at http://localhost:${port}`);
+  
+  console.log(new Date(),`TTS Engine running at http://localhost:${port}`);
 });
 
 var sampleInputs = [
-  "Hi How are you",
-  "welcome to village cooking channel",
-  "hanumantha is good boy",
-  "rishav is working on the API developing part",
-  "Annamalayaar",
-  "Durgadevi is a good girl",
-  "Nee ethu panna koodathunu solriyo atha pannuvan",
+  "I am Marco",
+  "my age is 28",
+  "It is 1234567890",
+  "March 11 2001",
+  "I am in Hyderabad right now",
+  "The aadhar number is 123456789012",
 ];
 
-runner.callProcessor().then(() => {
+/**
+ * Run the test tool if captcha
+ */
+// runner.callProcessor().then(() => {
+//     runner.loadWebsite().then(() => {
+//           runner.giveInputs(sampleInputs);
+//       });
+//     })
+//   .catch((error) => {
+//     console.error(error);
+// });
+
+/**
+ * Tool without captcha required on call receiver
+ */
+runnerLite
+  .callProcessor()
+  .then(() => {
     runner.loadWebsite().then(() => {
-          runner.giveInputs(sampleInputs);
-      });
-    })
+      runner.giveInputs(sampleInputs);
+    });
+  })
   .catch((error) => {
     console.error(error);
-});
-
+  });
 
 /**
  *  call is getting delay to get connected, need to add makeCall.click()
  *  Reduce the sleep times in IVRtestings suite
  *  Need to automate the captcha in gmail login
+ *  Captcha is on and off while switch networks
+ *
  */

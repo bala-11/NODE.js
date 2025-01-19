@@ -1,3 +1,3 @@
-var {callProcessor} = require('./IVRTestingFile')
+var {callProcessor} = require('./pgTeST')
 
 callProcessor()
