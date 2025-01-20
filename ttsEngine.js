@@ -21,35 +21,35 @@ var sampleInputs = [
   "my age is 28",
   "It is 1234567890",
   "March 11 2001",
-  "I am in Hyderabad right now",
+  "Madhapur,Hyderabad",
   "The aadhar number is 123456789012",
 ];
 
 /**
  * Run the test tool if captcha
  */
-// runner.callProcessor().then(() => {
-//     runner.loadWebsite().then(() => {
-//           runner.giveInputs(sampleInputs);
-//       });
-//     })
-//   .catch((error) => {
-//     console.error(error);
-// });
+runner.callProcessor().then(() => {
+    runner.loadWebsite().then(() => {
+          runner.giveInputs(sampleInputs);
+      });
+    })
+  .catch((error) => {
+    console.error(error);
+});
 
 /**
  * Tool without captcha required on call receiver
  */
-runnerLite
-  .callProcessor()
-  .then(() => {
-    runner.loadWebsite().then(() => {
-      runner.giveInputs(sampleInputs);
-    });
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+// runnerLite
+//   .callProcessor()
+//   .then(() => {
+//     runner.loadWebsite().then(() => {
+//       runner.giveInputs(sampleInputs);
+//     });
+//   })
+//   .catch((error) => {
+//     console.error(error);
+//   });
 
 /**
  *  call is getting delay to get connected, need to add makeCall.click()
