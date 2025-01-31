@@ -1,0 +1,19 @@
+POST  
+Content-Type: application/json
+auth : 
+{
+    "channel": "slack",
+    "userIdentityType": "resolve",
+    "message": {
+        "type": "script",
+        "val": ""
+        },
+        "identities": [
+            ""
+        ]
+}
+
+
+
+
+# var envMsg = 'John'; var channel = context.session.BotUserSession.lastMessage.channel; print(JSON.stringify({text: 'Hi ' + envMsg + ' message is from ' + channel + ' channel'}));

@@ -23,7 +23,13 @@ async function loadWebsite() {
 
 async function callProcessor() {
   try {
-    callReceiver = await new Builder().forBrowser("chrome").build();
+
+    let options = new chrome.Options();
+    options.addArguments(
+    '--use-fake-ui-for-media-stream',
+    '--disable-notifications'
+  );
+    callReceiver = await new Builder().forBrowser("chrome").setChromeOptions(options).build();
     await callReceiver.manage().window().maximize();
     await callReceiver.get("https://meet.google.com/new");
 
@@ -33,7 +39,7 @@ async function callProcessor() {
       ),
       10000
     );
-    await email.sendKeys("");
+    await email.sendKeys("balaji.kalimuthu-e@kore.com");
 
     const next2Captcha = await callReceiver.wait(
       until.elementIsEnabled(
@@ -66,7 +72,7 @@ async function callProcessor() {
       ),
       10000
     );
-    await pwd.sendKeys("");
+    await pwd.sendKeys("Durgairaj@1131");
 
     const next2login = await callReceiver.wait(
       until.elementIsEnabled(
